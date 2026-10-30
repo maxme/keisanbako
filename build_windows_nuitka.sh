@@ -83,16 +83,16 @@ PYTHONPATH=src python -m nuitka \
     src/Keisanbako/calculator.py
 
 # Rename the executable to Keisanbako.exe
-# Standalone output is dist/Keisanbako.dist; rename it to dist/Keisanbako
-if [ -d "dist/Keisanbako.dist" ]; then
-    mv dist/Keisanbako.dist dist/Keisanbako
+# Standalone output is dist/calculator.dist (named after the module); rename it to dist/Keisanbako
+if [ -d "dist/calculator.dist" ]; then
+    mv dist/calculator.dist dist/Keisanbako
 fi
 
 # Additional size optimization: Remove unnecessary files from the build directory
-if [ -d "dist/Keisanbako.build" ]; then
+if [ -d "dist/calculator.build" ]; then
     echo "🧹 Optimizing bundle size (removing unnecessary files)..."
 
-    BUILD_DIR="dist/Keisanbako.build"
+    BUILD_DIR="dist/calculator.build"
 
     # Remove unnecessary files
     find "$BUILD_DIR" -name "*.pyi" -delete 2>/dev/null || true  # Type stubs
@@ -120,7 +120,7 @@ if [ -f "dist/Keisanbako/Keisanbako.exe" ]; then
     fi
     echo ""
     echo "To run the app:"
-    echo "  dist/Keisanbako.exe"
+    echo "  dist/Keisanbako/Keisanbako.exe"
     echo ""
     echo "⚡ Nuitka builds are ~3-5x faster to start than PyInstaller!"
 else

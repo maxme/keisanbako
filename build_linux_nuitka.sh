@@ -31,7 +31,7 @@ echo "   (Aggressively pruning unused modules - this takes 2-5 minutes)..."
 PYTHONPATH=src python -m nuitka \
     --mode=standalone \
     --assume-yes-for-downloads \
-    --output-filename=Keisanbako \
+    --output-filename=keisanbako \
     --output-dir=dist \
     --lto=auto \
     --follow-imports \
@@ -70,18 +70,18 @@ PYTHONPATH=src python -m nuitka \
     --remove-output \
     src/Keisanbako/calculator.py
 
-# Standalone output is dist/Keisanbako.dist; rename it to dist/Keisanbako
-if [ -d "dist/Keisanbako.dist" ]; then
-    mv dist/Keisanbako.dist dist/Keisanbako
+# Standalone output is dist/calculator.dist (named after the module); rename it to dist/Keisanbako
+if [ -d "dist/calculator.dist" ]; then
+    mv dist/calculator.dist dist/Keisanbako
 fi
 
-chmod +x dist/Keisanbako/Keisanbako 2>/dev/null || true
+chmod +x dist/Keisanbako/keisanbako 2>/dev/null || true
 
 # Additional size optimization: Remove unnecessary files from the bundle
-if [ -f "dist/Keisanbako/Keisanbako" ] && [ -d "dist/Keisanbako.build" ]; then
+if [ -f "dist/Keisanbako/keisanbako" ] && [ -d "dist/calculator.build" ]; then
     echo "🧹 Optimizing bundle size (removing unnecessary files)..."
 
-    BUILD_DIR="dist/Keisanbako.build"
+    BUILD_DIR="dist/calculator.build"
 
     # Remove unnecessary files
     find "$BUILD_DIR" -name "*.pyi" -delete 2>/dev/null || true  # Type stubs
@@ -107,7 +107,7 @@ APP_SIZE=$(du -sh dist/Keisanbako* 2>/dev/null | tail -1 | cut -f1)
 echo "💾 Final app size: $APP_SIZE"
 echo ""
 echo "To run the app:"
-echo "  ./dist/Keisanbako"
+echo "  ./dist/Keisanbako/keisanbako"
 echo ""
 echo "To install system-wide:"
 echo "  sudo cp dist/Keisanbako /usr/local/bin/"
