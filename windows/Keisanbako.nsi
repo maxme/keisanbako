@@ -8,8 +8,8 @@
 !ifndef DISTDIR
   !define DISTDIR "..\dist"
 !endif
-Name "Keisanbako 0.1.0"
-OutFile "${DISTDIR}\Keisanbako-0.1.0-installer.exe"
+Name "Keisanbako 0.1.1"
+OutFile "${DISTDIR}\Keisanbako-0.1.1-installer.exe"
 InstallDir "$PROGRAMFILES\Keisanbako"
 RequestExecutionLevel admin
 
