@@ -45,6 +45,7 @@ echo "Yes" | PYTHONPATH=src python -m nuitka \
     --macos-app-icon="$ICON_PATH" \
     --output-dir=dist \
     --lto=no \
+    --disable-ccache \
     --follow-imports \
     --follow-import-to=json \
     --follow-import-to=urllib \
@@ -98,7 +99,6 @@ if [ -d "dist/Keisanbako.app" ]; then
     echo "   • Removing unused Qt modules (QtPdf, QtNetwork, QtDBus, QtSvg, etc.)..."
     rm -f "$MACOS/QtPdf"* 2>/dev/null || true
     rm -f "$MACOS/QtNetwork"* 2>/dev/null || true
-    rm -f "$MACOS/QtDBus"* 2>/dev/null || true
     rm -f "$MACOS/QtSvg"* 2>/dev/null || true
     rm -f "$MACOS/QtOpenGL"* 2>/dev/null || true
     rm -f "$MACOS/QtWebEngine"* 2>/dev/null || true
@@ -108,7 +108,6 @@ if [ -d "dist/Keisanbako.app" ]; then
     echo "   • Removing unused PySide6 modules..."
     rm -rf "$MACOS/PySide6/QtPdf" 2>/dev/null || true
     rm -rf "$MACOS/PySide6/QtNetwork" 2>/dev/null || true
-    rm -rf "$MACOS/PySide6/QtDBus" 2>/dev/null || true
     rm -rf "$MACOS/PySide6/QtSvg" 2>/dev/null || true
     rm -rf "$MACOS/PySide6/QtOpenGL" 2>/dev/null || true
     rm -rf "$MACOS/PySide6/QtWebEngine" 2>/dev/null || true
