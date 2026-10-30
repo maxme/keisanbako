@@ -98,6 +98,11 @@ if [ -f "dist/Keisanbako/keisanbako" ] && [ -d "dist/calculator.build" ]; then
     find "$BUILD_DIR" -name "*.md" -o -name "*.rst" -o -name "*.txt" | grep -v "Keisanbako" | xargs rm -f 2>/dev/null || true
 fi
 
+if [ ! -f "dist/Keisanbako/keisanbako" ]; then
+    echo "❌ Build failed or executable not found"
+    exit 1
+fi
+
 echo "✅ Build successful!"
 echo ""
 echo "📦 App location: dist/Keisanbako"
@@ -110,10 +115,6 @@ echo "To run the app:"
 echo "  ./dist/Keisanbako/keisanbako"
 echo ""
 echo "To install system-wide:"
-echo "  sudo cp dist/Keisanbako /usr/local/bin/"
-    echo ""
-    echo "⚡ Nuitka builds are ~3-5x faster to start than PyInstaller!"
-else
-    echo "❌ Build failed or executable not found"
-    exit 1
-fi
+echo "  sudo cp -r dist/Keisanbako /opt/Keisanbako"
+echo ""
+echo "⚡ Nuitka builds are ~3-5x faster to start than PyInstaller!"
