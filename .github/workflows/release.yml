@@ -46,7 +46,13 @@ jobs:
 
       - name: Install NSIS (Windows)
         if: runner.os == 'Windows'
-        run: choco install nsis -y --no-progress
+        shell: pwsh
+        run: |
+          choco install nsis -y --no-progress
+          # The install location is not fixed on the runner image, so look it up
+          $exe = Get-ChildItem -Path 'C:\Program Files (x86)', 'C:\Program Files' -Recurse -Depth 2 -Filter makensis.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) { throw 'makensis.exe not found after installing NSIS' }
+          "MAKENSIS=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Install Python dependencies
         run: |
@@ -75,7 +81,7 @@ jobs:
         shell: bash
         run: |
           ./build_windows_nuitka.sh
-          "/c/Program Files (x86)/NSIS/makensis.exe" \
+          "$(cygpath -u "$MAKENSIS")" \
             /DDISTDIR="$(cygpath -w "$PWD/dist")" \
             windows/Keisanbako.nsi
 
