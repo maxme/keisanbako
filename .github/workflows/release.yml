@@ -33,7 +33,10 @@ jobs:
 
       - name: Install system packages (macOS)
         if: runner.os == 'macOS'
-        run: brew install create-dmg cairo
+        run: |
+          brew install create-dmg cairo
+          # cairosvg loads libcairo through dyld; Homebrew installs it outside the default search path
+          echo "DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix)/lib" >> "$GITHUB_ENV"
 
       - name: Install system packages (Linux)
         if: runner.os == 'Linux'

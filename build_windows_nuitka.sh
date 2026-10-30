@@ -41,6 +41,8 @@ ICON_PATH="src/Keisanbako/resources/windows/keisanbako.ico"
 
 PYTHONPATH=src python -m nuitka \
     --mode=standalone \
+    --assume-yes-for-downloads \
+    --output-filename=Keisanbako.exe \
     --output-dir=dist \
     --lto=auto \
     --follow-imports \
@@ -81,17 +83,16 @@ PYTHONPATH=src python -m nuitka \
     src/Keisanbako/calculator.py
 
 # Rename the executable to Keisanbako.exe
-# Standalone output is dist/calculator.dist; rename it to dist/Keisanbako
-if [ -d "dist/calculator.dist" ]; then
-    mv dist/calculator.dist dist/Keisanbako
-    mv dist/Keisanbako/calculator.exe dist/Keisanbako/Keisanbako.exe
+# Standalone output is dist/Keisanbako.dist; rename it to dist/Keisanbako
+if [ -d "dist/Keisanbako.dist" ]; then
+    mv dist/Keisanbako.dist dist/Keisanbako
 fi
 
 # Additional size optimization: Remove unnecessary files from the build directory
-if [ -d "dist/calculator.build" ]; then
+if [ -d "dist/Keisanbako.build" ]; then
     echo "🧹 Optimizing bundle size (removing unnecessary files)..."
 
-    BUILD_DIR="dist/calculator.build"
+    BUILD_DIR="dist/Keisanbako.build"
 
     # Remove unnecessary files
     find "$BUILD_DIR" -name "*.pyi" -delete 2>/dev/null || true  # Type stubs
