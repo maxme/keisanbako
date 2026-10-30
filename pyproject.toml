@@ -37,6 +37,7 @@ dev = [
     "mypy>=1.0",
     "ruff>=0.1",
     "pyinstaller>=6.0",
+    "nuitka==4.3.3",
     "cairosvg>=2.7.0",
     "Pillow>=9.0",
 ]
