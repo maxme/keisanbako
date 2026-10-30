@@ -1,0 +1,85 @@
+{
+  "menu_file": "文件",
+  "menu_settings": "设置",
+  "menu_help": "帮助",
+
+  "action_export_history": "导出历史记录",
+  "action_clear_history": "清除",
+  "action_exit": "退出",
+
+  "action_settings": "打开设置",
+
+  "action_help": "显示帮助",
+  "action_toggle_history": "切换历史",
+  "theme_toggle": "切换主题",
+
+  "settings_title": "设置",
+  "settings_thousands_separator": "千位分隔符",
+  "settings_decimal_separator": "小数点分隔符",
+  "settings_language": "语言",
+  "settings_theme": "主题",
+  "settings_date_time_format": "日期和时间格式",
+
+  "thousands_space": "空格 (1 234)",
+  "thousands_comma": "逗号 (1,234)",
+  "thousands_dot": "点 (1.234)",
+  "thousands_none": "无 (1234)",
+
+  "decimal_dot": "点 (.)",
+  "decimal_comma": "逗号 (,)",
+
+  "theme_dark": "深色",
+  "theme_light": "浅色",
+
+  "date_format_iso": "ISO (2026-09-08)",
+  "date_format_us": "美国 (09/08/2026)",
+  "date_format_eu": "欧洲 (08/09/2026)",
+  "date_format_long": "完整 (2026年9月8日)",
+  "date_format_abbr": "缩写 (2026年9月8日)",
+  "date_format_iso_time": "ISO with Time (2026-09-08 14:30:45)",
+
+  "button_ok": "确定",
+  "button_cancel": "取消",
+
+  "window_title_macos": "Keisanbako",
+  "input_placeholder": "输入表达式...",
+
+  "help_title": "Keisanbako 帮助",
+  "help_available_functions": "可用的函数:",
+  "help_user_variables": "用户变量:",
+  "help_formatting": "格式:",
+  "help_thousands_label": "千位",
+  "help_decimal_label": "小数",
+
+  "export_title": "导出",
+  "export_success": "历史记录导出成功",
+  "export_failed": "历史记录导出失败",
+
+  "confirm_clear_title": "清除历史",
+  "confirm_clear_message": "确定要清除历史记录吗？",
+
+  "status_cached": "⚡ 缓存",
+
+  "message_no_calculation": "请输入表达式",
+  "error_message": "错误",
+
+  "error_syntax": "表达式语法错误。检查您的括号和运算符。",
+  "error_undefined_var": "未定义的变量或函数。检查拼写。",
+  "error_undefined_var_name": "未定义",
+  "error_undefined_func": "未知函数。尝试: sqrt, sin, cos, tan, log, exp, 等。",
+  "error_zero_division": "不能除以零。检查您的表达式。",
+  "error_invalid_type": "无效操作。类型或操作不兼容。",
+  "error_unsupported_currency": "不支持的货币代码。尝试: EUR, USD, GBP, JPY, 等。",
+  "error_unsupported_unit": "不支持的单位。尝试: m, km, cm, inch, mile, lb, kg, 等。",
+  "error_invalid_amount": "无效数量。请输入有效数字。",
+  "error_calculation": "计算错误。检查您的表达式。",
+
+  "help_calculator_title": "Keisanbako 计算器",
+  "help_instructions": "输入表达式（自动处理空格）",
+  "help_examples_title": "示例:",
+  "help_example_arithmetic": "基本算术和记号：1000+500，2 ** 10，1e5",
+  "help_example_currency": "货币转换：100 yen in eur，10 USD to JPY",
+  "help_example_units": "单位转换：100 cm in m，32 F in C",
+  "help_example_date": "日期算术：today + 30 days，today + ((1280 - 400) / 20) days",
+  "help_example_variables": "变量和函数：x = 5，f(x) = x * 2，f(5)"
+}

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Keisanbako
+Comment=A fast calculator with currency conversion and date arithmetic
+Icon=keisanbako
+Exec=/opt/Keisanbako/Keisanbako
+Terminal=false
+Categories=Utility;Calculator;
+Keywords=calculator;math;currency;

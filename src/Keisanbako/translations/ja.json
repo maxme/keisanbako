@@ -1,0 +1,85 @@
+{
+  "menu_file": "ファイル",
+  "menu_settings": "設定",
+  "menu_help": "ヘルプ",
+
+  "action_export_history": "履歴をエクスポート",
+  "action_clear_history": "クリア",
+  "action_exit": "終了",
+
+  "action_settings": "設定を開く",
+
+  "action_help": "ヘルプを表示",
+  "action_toggle_history": "履歴の表示切替",
+  "theme_toggle": "テーマの切替",
+
+  "settings_title": "設定",
+  "settings_thousands_separator": "千の位の区切り記号",
+  "settings_decimal_separator": "小数点の区切り記号",
+  "settings_language": "言語",
+  "settings_theme": "テーマ",
+  "settings_date_time_format": "日付と時刻の形式",
+
+  "thousands_space": "スペース (1 234)",
+  "thousands_comma": "コンマ (1,234)",
+  "thousands_dot": "ドット (1.234)",
+  "thousands_none": "なし (1234)",
+
+  "decimal_dot": "ドット (.)",
+  "decimal_comma": "コンマ (,)",
+
+  "theme_dark": "ダーク",
+  "theme_light": "ライト",
+
+  "date_format_iso": "ISO (2026-09-08)",
+  "date_format_us": "米国 (09/08/2026)",
+  "date_format_eu": "ヨーロッパ (08/09/2026)",
+  "date_format_long": "完全形式 (2026年9月8日)",
+  "date_format_abbr": "短縮形式 (2026年9月8日)",
+  "date_format_iso_time": "ISO with Time (2026-09-08 14:30:45)",
+
+  "button_ok": "OK",
+  "button_cancel": "キャンセル",
+
+  "window_title_macos": "Keisanbako",
+  "input_placeholder": "式を入力してください...",
+
+  "help_title": "Keisanbako ヘルプ",
+  "help_available_functions": "利用可能な関数:",
+  "help_user_variables": "ユーザー変数:",
+  "help_formatting": "形式:",
+  "help_thousands_label": "千位",
+  "help_decimal_label": "小数",
+
+  "export_title": "エクスポート",
+  "export_success": "履歴のエクスポートに成功しました",
+  "export_failed": "履歴のエクスポートに失敗しました",
+
+  "confirm_clear_title": "履歴を消去",
+  "confirm_clear_message": "履歴を消去してもよろしいですか？",
+
+  "status_cached": "⚡ キャッシュ",
+
+  "message_no_calculation": "式を入力してください",
+  "error_message": "エラー",
+
+  "error_syntax": "式の構文エラー。括弧と演算子を確認してください。",
+  "error_undefined_var": "未定義の変数または関数。スペルを確認してください。",
+  "error_undefined_var_name": "未定義",
+  "error_undefined_func": "不明な関数。試してください: sqrt, sin, cos, tan, log, exp, など。",
+  "error_zero_division": "ゼロで除算できません。式を確認してください。",
+  "error_invalid_type": "無効な操作。互換性のない型または操作。",
+  "error_unsupported_currency": "サポートされていない通貨コード。試してください: EUR, USD, GBP, JPY, など。",
+  "error_unsupported_unit": "サポートされていない単位。試してください: m, km, cm, inch, mile, lb, kg, など。",
+  "error_invalid_amount": "無効な金額。有効な数値を入力してください。",
+  "error_calculation": "計算エラー。式を確認してください。",
+
+  "help_calculator_title": "Keisanbako 計算機",
+  "help_instructions": "式を入力してください（スペースは自動的に処理されます）",
+  "help_examples_title": "例:",
+  "help_example_arithmetic": "基本的な算術と記号法：1000+500、2 ** 10、1e5",
+  "help_example_currency": "通貨変換：100 yen in eur、10 USD to JPY",
+  "help_example_units": "単位変換：100 cm in m、32 F in C",
+  "help_example_date": "日付計算：today + 30 days、today + ((1280 - 400) / 20) days",
+  "help_example_variables": "変数と関数：x = 5、f(x) = x * 2、f(5)"
+}

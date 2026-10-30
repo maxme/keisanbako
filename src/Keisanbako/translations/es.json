@@ -1,0 +1,83 @@
+{
+  "menu_file": "Archivo",
+  "menu_settings": "Configuración",
+  "menu_help": "Ayuda",
+
+  "action_export_history": "Exportar historial",
+  "action_clear_history": "Borrar",
+  "action_exit": "Salir",
+
+  "action_settings": "Abrir configuración",
+
+  "action_help": "Mostrar ayuda",
+  "action_toggle_history": "Alternar historial",
+  "theme_toggle": "Alternar tema",
+
+  "settings_title": "Configuración",
+  "settings_thousands_separator": "Separador de miles",
+  "settings_decimal_separator": "Separador decimal",
+  "settings_language": "Idioma",
+  "settings_theme": "Tema",
+  "settings_date_time_format": "Formato de fecha y hora",
+
+  "thousands_space": "Espacio (1 234)",
+  "thousands_comma": "Coma (1,234)",
+  "thousands_dot": "Punto (1.234)",
+  "thousands_none": "Ninguno (1234)",
+
+  "decimal_dot": "Punto (.)",
+  "decimal_comma": "Coma (,)",
+
+  "theme_dark": "Oscuro",
+  "theme_light": "Claro",
+
+  "date_format_iso": "ISO (2026-09-08)",
+  "date_format_us": "EE.UU. (09/08/2026)",
+  "date_format_eu": "UE (08/09/2026)",
+  "date_format_long": "Largo (8 de septiembre de 2026)",
+  "date_format_abbr": "Abreviado (8 sep 2026)",
+  "date_format_iso_time": "ISO con hora (2026-09-08 14:30:45)",
+
+  "button_ok": "Aceptar",
+  "button_cancel": "Cancelar",
+
+  "window_title_macos": "Keisanbako",
+  "input_placeholder": "Ingrese una expresión...",
+
+  "help_title": "Ayuda de Keisanbako",
+  "help_available_functions": "Funciones disponibles:",
+  "help_user_variables": "Variables del usuario:",
+  "help_formatting": "Formato:",
+  "help_thousands_label": "miles",
+  "help_decimal_label": "decimal",
+
+  "export_title": "Exportar",
+  "export_success": "Historial exportado exitosamente",
+  "export_failed": "Error al exportar el historial",
+
+  "confirm_clear_title": "Borrar historial",
+  "confirm_clear_message": "¿Estás seguro de que quieres borrar el historial?",
+
+  "status_cached": "⚡ caché",
+
+  "message_no_calculation": "Por favor ingrese una expresión",
+  "error_message": "Error",
+  "error_syntax": "Error de sintaxis en la expresión. Verifique sus paréntesis y operadores.",
+  "error_undefined_var": "Variable o función indefinida. Verifique la ortografía.",
+  "error_undefined_var_name": "Indefinido",
+  "error_undefined_func": "Función desconocida. Intente: sqrt, sin, cos, tan, log, exp, etc.",
+  "error_zero_division": "No se puede dividir por cero. Verifique su expresión.",
+  "error_invalid_type": "Operación inválida. Tipos u operaciones incompatibles.",
+  "error_unsupported_currency": "Código de moneda no admitido. Intente: EUR, USD, GBP, JPY, etc.",
+  "error_unsupported_unit": "Unidad no admitida. Intente: m, km, cm, inch, mile, lb, kg, etc.",
+  "error_invalid_amount": "Cantidad inválida. Por favor, ingrese un número válido.",
+  "error_calculation": "Error en el cálculo. Verifique su expresión.",
+  "help_calculator_title": "Calculadora Keisanbako",
+  "help_instructions": "Ingrese expresiones (los espacios se manejan automáticamente)",
+  "help_examples_title": "Ejemplos:",
+  "help_example_arithmetic": "Aritmética básica y notación: 1000+500, 2 ** 10, 1e5",
+  "help_example_currency": "Conversiones de divisas: 100 yen in eur, 10 USD to JPY, 1 eth in usd",
+  "help_example_units": "Conversiones de unidades: 100 cm in m, 32 F in C, 100 sqft in m2",
+  "help_example_date": "Aritmética de fechas: today + 30 days, today + ((1280 - 400) / 20) days",
+  "help_example_variables": "Variables y funciones: x = 5, f(x) = x * 2, f(5)"
+}
