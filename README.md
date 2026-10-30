@@ -1,222 +1,131 @@
 # Keisanbako Calculator
 
-A fast, secure calculator with currency conversion and date arithmetic support.
-
-## Quick Start
-
-### Installation
-
-```bash
-# Clone the repository
-cd keisanbako
-
-# Create a virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -e ".[dev]"
-```
-
-### Running the Calculator
-
-```bash
-python -m Keisanbako.calculator
-# or if installed as script:
-keisanbako
-```
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov=src/Keisanbako --cov-report=html
-# Opens htmlcov/index.html in your browser
-```
+A desktop calculator (PySide6) with live evaluation, currency and unit conversion, and date arithmetic. Available in English, Spanish, French, Japanese, and Chinese (Simplified and Traditional).
 
 ## Features
 
-- ✅ **Basic Arithmetic** - All standard math operations (+, -, *, /, **)
-- ✅ **Math Functions** - sqrt, sin, cos, tan, log, exp, and more
-- ✅ **Date Arithmetic** - `today() + 30 days`, `date(2026, 12, 25) - today()`
-- ✅ **Currency Conversion** - `100 USD in EUR`, `1000 yen to gbp`
-- ✅ **Real-time Results** - See calculations as you type
-- ✅ **Secure Evaluation** - Hardened against code injection
-- ✅ **History Tracking** - All calculations saved during session
+- **Arithmetic and functions** - `+ - * / **`, `sqrt`, trig, `log`, `exp`, and more
+- **Date arithmetic** - `today() + 30 days`, `date(2026, 12, 25) - today()`
+- **Currency conversion** - `100 USD in EUR`, `1000 yen to gbp` (rates fetched over the network, with a cache)
+- **Unit conversion** - length, area, speed, temperature, weight
+- **Live results** - the result updates as you type (debounced)
+- **History** - calculations are saved to `~/.keisanbako_history.json`
+- **Settings and themes** - dark and light themes, saved to `~/.keisanbako_settings.json`
+- **Safe evaluation** - expressions are parsed and evaluated through a whitelist, not with `eval` on raw input
 
-## Project Structure
+## Installation
 
-```
-keisanbako/
-├── src/Keisanbako/
-│   ├── __init__.py           # Package initialization
-│   └── calculator.py         # Main application
-├── tests/
-│   └── test_calculator.py    # Comprehensive test suite (46 tests)
-├── pyproject.toml            # Python project configuration
-├── .gitignore                # Git ignore patterns
-└── README.md                 # This file
+Requires Python 3.10 or newer.
+
+```bash
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -e ".[dev]"
 ```
 
-## Documentation
+This installs the `keisanbako` command.
 
-Detailed documentation is in the `docs/` folder:
+## Running
 
-- **[docs/00_START_HERE.md](docs/00_START_HERE.md)** - Start here! Quick completion summary
-- **[docs/QUICKSTART.md](docs/QUICKSTART.md)** - Get it running in 5 minutes
-- **[docs/IMPROVEMENTS.md](docs/IMPROVEMENTS.md)** - What was improved and why
-- **[docs/DESIGN_PATTERNS.md](docs/DESIGN_PATTERNS.md)** - Software engineering best practices
-- **[docs/BEFORE_AFTER.md](docs/BEFORE_AFTER.md)** - See specific code improvements
-- **[docs/DELIVERABLES.md](docs/DELIVERABLES.md)** - Complete overview of deliverables
-
-## Usage Examples
-
-### In the GUI
-
-```
-Calculator interface allows:
-100 + 50                       → = 150
-sqrt(144)                      → = 12
-today() + 30 days              → = 2026-10-08
-100 USD in EUR                 → = 92 EUR
+```bash
+keisanbako
 ```
 
-### In Python Code
+From a source checkout without installing:
+
+```bash
+PYTHONPATH=src python -m Keisanbako.calculator
+```
+
+Or with the Makefile: `make run`.
+
+## Using the evaluator from Python
 
 ```python
-from Keisanbako.calculator import ExpressionEvaluator
+from Keisanbako.evaluator import ExpressionEvaluator
 
 evaluator = ExpressionEvaluator()
 
-# Basic arithmetic
-result = evaluator.evaluate("100 * 5 + 2")
-print(result.value)  # "502"
+evaluator.evaluate("100 * 5 + 2").value        # "502"
+evaluator.evaluate("sqrt(144)").value          # "12.0"
+evaluator.evaluate("today() + 30 days").value  # e.g. "2026-11-29"
+```
 
-# Date arithmetic
-result = evaluator.evaluate("today() + 30 days")
-print(result.value)  # "2026-10-08"
+`evaluate()` returns a `CalculationResult` with `value` and `is_error`.
 
-# Currency conversion
-result = evaluator.evaluate("100 USD in EUR")
-print(result.value)  # "92 EUR"
+## Project structure
+
+```
+src/Keisanbako/
+├── calculator.py        # Entry point (main)
+├── ui.py                # PySide6 widgets
+├── evaluator.py         # ExpressionEvaluator: safe evaluation
+├── parser.py            # Expression parsing and preprocessing
+├── converters.py        # Currency and unit conversion, request cache
+├── settings.py          # Settings persistence
+├── settings_dialog.py   # Settings UI
+├── themes.py            # Dark and light styling
+├── translations.py      # i18n loader
+├── translations/*.json  # Strings per language
+├── workers.py           # Background threads
+├── network_status.py    # Connectivity checks
+└── constants.py         # Window size, timeouts, colors, file paths
+tests/                   # pytest suite
+scripts/                 # Icon conversion, macOS DMG creation
+linux/, windows/         # Desktop integration and installer files
 ```
 
 ## Testing
 
-The project includes 46 comprehensive tests with ~90% code coverage:
-
 ```bash
-# Run tests with verbose output
-pytest -v
-
-# Run specific test
-pytest tests/test_calculator.py::TestFormatNumber -v
-
-# Run with coverage report
-pytest --cov=src/Keisanbako --cov-report=html
+pytest
 ```
 
-**Test Results:** ✅ 46/46 tests passing
+The suite has 356 tests. At the time of writing, 332 pass and 24 fail:
 
-## Configuration
+- 23 failures in `tests/test_calculator.py` (`TestUnitConversion`): the conversion results do not match the expected values, for example `'50.0'` is returned where `'50'` is expected.
+- 1 failure in `tests/test_edge_cases.py` (`test_long_variable_names`).
 
-Customize the calculator by editing constants at the top of `src/Keisanbako/calculator.py`:
+Some test modules import `requests`, which is not declared in `pyproject.toml` and is not used by the application itself. Install it to run the suite: `pip install requests`.
 
-```python
-# Window dimensions
-WINDOW_WIDTH = 700
-WINDOW_HEIGHT = 500
+Use `QT_QPA_PLATFORM=offscreen` to run the GUI tests on a machine without a display.
 
-# Colors
-COLORS = {
-    "background_dark": "#1e1e1e",
-    "error": "#f14c4c",
-    # ... more colors
-}
+## Build and packaging
 
-# API settings
-API_TIMEOUT = 2
-API_MAX_RETRIES = 2
-```
+The Makefile wraps the build scripts:
 
-## Security
+| Target | Purpose |
+| --- | --- |
+| `make build` | Build for the current platform (Nuitka scripts) |
+| `make build-macos` / `build-linux` / `build-windows` | Platform builds |
+| `make install-macos` / `install-linux` | Install the build |
+| `make dmg` | Create a macOS DMG |
+| `make icons` | Convert `assets/keisanbako_icon.svg` to all icon formats |
+| `make test` | Run the test suite verbosely |
+| `make check` | Format, lint, and type-check |
+| `make clean` / `make clean-all` | Remove build outputs (and generated icons) |
 
-- ✅ **Hardened Expression Evaluation** - Explicit whitelist of safe functions only
-- ✅ **Blocked Dangerous Functions** - `__import__`, `open()`, `exec()` are not accessible
-- ✅ **URL Validation** - API calls are validated
-- ✅ **Timeout Protection** - All API calls have 2-second timeout
-- ✅ **Error Logging** - Comprehensive logging for debugging
-
-## Performance
-
-- **Test Suite:** 46 tests in ~0.14 seconds
-- **Expression Evaluation:** < 1ms typical
-- **API Calls:** 1-2 seconds (with retry logic)
-
-## Requirements
-
-- Python 3.10 or higher
-- PyQt6 (for GUI)
-- pytest (for testing, optional)
+Run `make help` for the full list.
 
 ## Development
 
-### Setting up Development Environment
-
 ```bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate
-
-# Install with development dependencies
-pip install -e ".[dev]"
-
-# Run tests before committing
-pytest
-
-# Format code
-black src/ tests/
-
-# Type checking
-mypy src/Keisanbako/
-
-# Linting
-ruff check src/ tests/
+black src/ tests/          # Format (line length 100)
+ruff check src/ tests/     # Lint
+mypy src/Keisanbako/       # Type-check
 ```
 
-### Adding Tests
+Roadmap and past refactoring notes are in [TODO.md](TODO.md). Build notes are in [BUILD_OPTIMIZATION.md](BUILD_OPTIMIZATION.md).
 
-New test cases should follow the pattern in `tests/test_calculator.py`:
+## Known issues
 
-```python
-def test_my_feature(self):
-    """Test description."""
-    result = self.evaluator.evaluate("my expression")
-    self.assertFalse(result.is_error)
-    self.assertEqual(result.value, "expected")
-```
-
-## License
-
-MIT License - See LICENSE file for details
+- The 24 failing tests listed above.
+- Currency conversion depends on the Frankfurter (`api.frankfurter.app`) and CoinGecko APIs, so it needs network access.
+- No `LICENSE` file is included yet. The project metadata declares MIT.
 
 ## Contributing
 
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new features
-4. Run `pytest` to ensure all tests pass
-5. Submit a pull request
-
-## Support
-
-For questions or issues:
-
-1. Check the [documentation](docs/) folder
-2. Review test cases in [tests/](tests/) for usage examples
-3. Check logging output when running the application
+1. Create a feature branch.
+2. Add tests for new behaviour.
+3. Run `pytest` and make sure no new failures are introduced.
+4. Open a pull request.
