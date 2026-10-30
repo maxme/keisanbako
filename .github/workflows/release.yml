@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+env:
+  # convert_icons.py prints emoji, which the Windows console encoding cannot handle
+  PYTHONUTF8: "1"
+
 jobs:
   build:
     name: Build ${{ matrix.name }}
@@ -60,9 +64,11 @@ jobs:
           python -m pip install -e ".[dev]" zstandard ordered-set
 
       - name: Generate icons
-        # Cairo is not reliably available on the Windows runner; the Windows build works without the icon
-        continue-on-error: ${{ runner.os == 'Windows' }}
-        run: python scripts/convert_icons.py
+        # Cairo is not available on the Windows runner, so icon generation can fail there.
+        # The Windows build then runs without an icon, which the build script allows.
+        shell: bash
+        run: |
+          python scripts/convert_icons.py || echo "Icon generation failed; continuing without generated icons"
 
       - name: Build macOS app and DMG
         if: runner.os == 'macOS'
