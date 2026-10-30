@@ -2,6 +2,24 @@
 
 A desktop calculator (PySide6) with live evaluation, currency and unit conversion, and date arithmetic. Available in English, Spanish, French, Japanese, and Chinese (Simplified and Traditional).
 
+![Keisanbako with sample calculations](docs/screenshot.png)
+
+## Examples
+
+Type an expression and press Enter to add it to the history. The result is shown live below the input.
+
+| Input | Result |
+| --- | --- |
+| `100 * 5 + 2` | `502` |
+| `sqrt(144)` | `12` |
+| `2 ** 10` | `1 024` |
+| `today() + 30 days` | `2026-11-29` (the date when you run it) |
+| `1 kg in g` | `1 000 g` |
+| `10 ft in m` | `3.048 m` |
+| `32 F in C` | `0 C` |
+| `100 EUR in USD` | `111.72 USD` (live rate, varies) |
+| `1 hour in minutes` | `60 minutes` |
+
 ## Features
 
 - **Arithmetic and functions** - `+ - * / **`, `sqrt`, trig, `log`, `exp`, and more
