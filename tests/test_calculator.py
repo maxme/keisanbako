@@ -56,6 +56,20 @@ class TestFormatNumber(unittest.TestCase):
         """Test formatting small float."""
         self.assertEqual(format_number(0.123), "0.123")
 
+    def test_format_hides_float_noise(self):
+        """Binary rounding noise is not shown to the user."""
+        self.assertEqual(format_number(28.799999999999997), "28.8")
+        self.assertEqual(format_number(32.186879999999995), "32.18688")
+        self.assertEqual(format_number(0.1 + 0.2), "0.3")
+
+    def test_format_noise_that_rounds_to_whole_number(self):
+        """Noise that rounds to an integer is shown as an integer."""
+        self.assertEqual(format_number(2.9999999999999996), "3")
+
+    def test_format_repeating_decimal_is_truncated(self):
+        """Repeating decimals are capped at the display precision."""
+        self.assertEqual(format_number(1 / 3), "0.3333333333")
+
     def test_format_negative_number(self):
         """Test formatting negative number."""
         self.assertEqual(format_number(-1000), "-1 000")

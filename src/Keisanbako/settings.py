@@ -95,6 +95,10 @@ class SettingsManager:
 # ============================================================================
 
 
+# Maximum decimal places shown for floats; hides binary rounding noise in results
+DISPLAY_DECIMAL_PLACES: int = 10
+
+
 def format_number(val: int | float) -> str:
     """Format a number using the active user formatting settings.
 
@@ -110,6 +114,11 @@ def format_number(val: int | float) -> str:
     settings = SettingsManager.get().settings
     thousands_sep = settings.get("thousands_separator", " ")
     decimal_sep = settings.get("decimal_separator", ".")
+
+    # Round away binary floating-point noise (e.g. 28.799999999999997 -> 28.8).
+    # Only the display is rounded; the evaluator keeps full precision in raw_value.
+    if isinstance(val, float):
+        val = round(val, DISPLAY_DECIMAL_PLACES)
 
     if isinstance(val, float) and val.is_integer():
         val = int(val)
