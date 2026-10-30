@@ -4,8 +4,12 @@
 !include "MUI2.nsh"
 
 ; App Info
-Name "Keisanbako 2.0.0"
-OutFile "Keisanbako-2.0.0-installer.exe"
+; DISTDIR is passed by the release workflow (absolute path to the dist folder)
+!ifndef DISTDIR
+  !define DISTDIR "..\dist"
+!endif
+Name "Keisanbako 0.1.0"
+OutFile "${DISTDIR}\Keisanbako-0.1.0-installer.exe"
 InstallDir "$PROGRAMFILES\Keisanbako"
 RequestExecutionLevel admin
 
@@ -20,7 +24,7 @@ RequestExecutionLevel admin
 ; Installer Section
 Section "Install"
     SetOutPath "$INSTDIR"
-    File /r "dist\Keisanbako\*.*"
+    File /r "${DISTDIR}\Keisanbako\*.*"
 
     ; Create Start Menu shortcuts
     CreateDirectory "$SMPROGRAMS\Keisanbako"

@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS
+            os: macos-latest
+          - name: Windows
+            os: windows-latest
+          - name: Linux
+            os: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install system packages (macOS)
+        if: runner.os == 'macOS'
+        run: brew install create-dmg cairo
+
+      - name: Install system packages (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev patchelf
+
+      - name: Install NSIS (Windows)
+        if: runner.os == 'Windows'
+        run: choco install nsis -y --no-progress
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]" nuitka zstandard ordered-set
+
+      - name: Generate icons
+        # Cairo is not reliably available on the Windows runner; the Windows build works without the icon
+        continue-on-error: ${{ runner.os == 'Windows' }}
+        run: python scripts/convert_icons.py
+
+      - name: Build macOS app and DMG
+        if: runner.os == 'macOS'
+        run: |
+          ./build_macos_nuitka.sh
+          ./scripts/create_dmg.sh
+
+      - name: Build Linux app and archive
+        if: runner.os == 'Linux'
+        run: |
+          ./build_linux_nuitka.sh
+          tar -C dist -czf dist/Keisanbako-0.1.0-linux-x86_64.tar.gz Keisanbako
+
+      - name: Build Windows app and installer
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          ./build_windows_nuitka.sh
+          "/c/Program Files (x86)/NSIS/makensis.exe" \
+            /DDISTDIR="$(cygpath -w "$PWD/dist")" \
+            windows/Keisanbako.nsi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: keisanbako-${{ matrix.name }}
+          path: dist/Keisanbako-0.1.0*
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+
+      - name: Create release with all platform builds
+        run: |
+          gh release create "$GITHUB_REF_NAME" assets/* \
+            --title "Keisanbako ${GITHUB_REF_NAME#v}" \
+            --generate-notes

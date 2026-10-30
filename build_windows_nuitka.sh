@@ -81,8 +81,10 @@ PYTHONPATH=src python -m nuitka \
     src/Keisanbako/calculator.py
 
 # Rename the executable to Keisanbako.exe
-if [ -f "dist/calculator.exe" ]; then
-    mv dist/calculator.exe dist/Keisanbako.exe
+# Standalone output is dist/calculator.dist; rename it to dist/Keisanbako
+if [ -d "dist/calculator.dist" ]; then
+    mv dist/calculator.dist dist/Keisanbako
+    mv dist/Keisanbako/calculator.exe dist/Keisanbako/Keisanbako.exe
 fi
 
 # Additional size optimization: Remove unnecessary files from the build directory
@@ -105,14 +107,14 @@ if [ -d "dist/calculator.build" ]; then
     find "$BUILD_DIR" -name "*.md" -o -name "*.rst" -o -name "*.txt" | grep -v "Keisanbako" | xargs rm -f 2>/dev/null || true
 fi
 
-if [ -f "dist/Keisanbako.exe" ]; then
+if [ -f "dist/Keisanbako/Keisanbako.exe" ]; then
     echo "✅ Build successful!"
     echo ""
-    echo "📦 App location: dist/Keisanbako.exe"
+    echo "📦 App location: dist/Keisanbako/Keisanbako.exe"
 
     # Show final size (Windows du command may differ)
     if command -v du &> /dev/null; then
-        APP_SIZE=$(du -sh dist/Keisanbako.exe 2>/dev/null | cut -f1)
+        APP_SIZE=$(du -sh dist/Keisanbako 2>/dev/null | cut -f1)
         echo "💾 Final app size: $APP_SIZE"
     fi
     echo ""

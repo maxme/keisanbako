@@ -14,7 +14,7 @@ fi
 
 # Paths
 APP_PATH="dist/Keisanbako.app"
-DMG_PATH="dist/Keisanbako-2.0.0.dmg"
+DMG_PATH="dist/Keisanbako-0.1.0.dmg"
 ICON_PATH="src/Keisanbako/resources/macos/keisanbako.icns"
 
 if [ ! -d "$APP_PATH" ]; then
@@ -28,7 +28,7 @@ rm -f "$DMG_PATH"
 
 # Create DMG with custom background and layout
 create-dmg \
-  --volname "Keisanbako 2.0.0" \
+  --volname "Keisanbako 0.1.0" \
   --volicon "$ICON_PATH" \
   --window-pos 200 120 \
   --window-size 600 400 \

@@ -228,7 +228,7 @@ clean-all: clean clean-icons
 info:
 	@echo "$(BLUE)Project Information:$(NC)"
 	@echo "  Name: Keisanbako Calculator"
-	@echo "  Version: 2.0.0"
+	@echo "  Version: 0.1.0"
 	@echo "  Python: 3.10+"
 	@echo "  GUI: PyQt6"
 	@echo ""
